@@ -6,9 +6,9 @@
   "private": false,
   "license": "MIT",
   "scripts": {
-    "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "tsc": "tsc",
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
     "lib": "vue-cli-service build --target lib --name powerful-table --dest lib ./src/powerfulTable/index.ts && cp ./types/powerful-table.d.ts ./lib/"
   },
   "files": [
@@ -50,14 +50,13 @@
     "vue": "^3.2.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-typescript": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.2.0",
+    "@vitejs/plugin-vue-jsx": "^1.1.7",
+    "@vitejs/plugin-vue": "^2.0.0",
+    "typescript": "^4.4.4",
+    "vite": "^2.7.2",
+    "vue-tsc": "^0.29.8",
     "el-plus-powerful-table-ts": "^1.1.0",
     "sass": "^1.45.1",
-    "sass-loader": "^10",
-    "typescript": "^4.4.3",
     "vue-draggable-next": "^2.1.1"
   }
 }
