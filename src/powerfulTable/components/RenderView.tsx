@@ -48,6 +48,7 @@ export default defineComponent({
 
     return () => (
       <>
+        {item.value}
         <el-table
           class="render-views-table"
           data={state.tableLists}
@@ -60,21 +61,22 @@ export default defineComponent({
           onSort-change={sortChange}
           onRow-click={rowClick}
           style={{
-            width: item.value?.width ? `${item.value?.width}px` : '100px'
+            width: `${item.value.width || item.value.minWidth || 100}px`
           }}
           // 修改右侧视图数据
           onClick={() => {
             data.headerIndex = props.index;
+            data.propsIndex = -1;
             data.type = 'layout';
           }}
         >
           <el-table-column
             v-slots={{
               default: (scope: any) => (
-                <Draggable class="drag-views" list={item.value.props as PowerfulTableHeaderProps[]} onChange={log} group={GroupName.Layout}>
+                <Draggable class={['drag-views', data.headerIndex == props.index && data.propsIndex == -1 ? 'active' : '']} list={item.value.props as PowerfulTableHeaderProps[]} onChange={log} group={GroupName.Layout}>
                   {Array.isArray(item.value.props) && item.value.props.length
-                    ? item.value.props.map(prop => (
-                        <div class="drag-views-prop" onClick={(e: Event) => {
+                    ? item.value.props.map((prop, index) => (
+                        <div class={['drag-views-prop', data.headerIndex == props.index && data.propsIndex == index ? 'active' : '']} onClick={(e: Event) => {
                           e.stopPropagation()
                           data.headerIndex = props.index,
                           data.propsIndex = scope.$index,
@@ -94,7 +96,7 @@ export default defineComponent({
             show-overflow-tooltip={item.value?.overflowTooltip || false}
             // prop={item.value?.props ? Array.isArray(item.value.props) ? item.value.props[0].prop : item.value.props.prop : ''}
             label={item.value?.label}
-            min-width={item.value?.minWidth || 140}
+            min-width={item.value?.minWidth || 100}
             width={item.value?.width || ''}
             class-name={item.value?.headerAlign || 'center'}
           >

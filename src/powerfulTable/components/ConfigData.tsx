@@ -14,7 +14,7 @@ export default defineComponent({
     return () => (
       <>
         {data.type
-          ? <el-form model={getCurrentData()}>
+          ? <el-form model={getCurrentData()} label-position='top' class="config-data-form">
               {
                 { 
                   'layout': <components.Layout></components.Layout>,

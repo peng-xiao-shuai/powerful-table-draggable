@@ -1,7 +1,6 @@
-import { data } from '@/modules/index';
-import { Type } from 'el-plus-powerful-table-ts';
 import Input from './input';
 import Button from './button';
+import { QuestionFilled } from '@element-plus/icons-vue';
 /**
  * 匹配组件
  * @param {string} type 类型
@@ -30,3 +29,17 @@ export const matchComponents = (type: string = 'text', scope: any, prop: any, pr
     'layout':'layout'
   }[type]
 }
+
+/**
+ * 自定义表单label提示
+ */
+export const FormItemLabelToolTip = (label: string, content: string, placement: string = 'bottom') => ({
+  label: () => (
+    <>
+      <span>{ label }</span>
+      <el-tooltip class="tooltip" effect="dark" content={content} placement={placement}>
+        <el-icon><QuestionFilled /></el-icon>
+      </el-tooltip>
+    </>
+  )
+})
