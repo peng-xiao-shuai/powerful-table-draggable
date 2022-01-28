@@ -135,7 +135,8 @@ export const useState = (props: any) => {
     listLoading: true, //页面是否加载中
     develop: [],       // 展开
     currentPage: 1,    // 当前页
-    pageSize: props.pageSizes[0],  //一页多少条
+    pageSize: 20,  //一页多少条
+    // TODO pageSize: props.pageSizes[0],  //一页多少条
     currentSelect: [], // 当前页选中
     otherSelect: [],   // 其他页选中
     operate: {  // 承载props的operateData
@@ -149,7 +150,58 @@ export const useState = (props: any) => {
 
   // 组件参数
   const state = reactive({
-    tableLists: [] as any[],
+    tableLists: [
+      // {
+      //   id: 2,
+      //   name: "蓝猫",
+      //   icon: 'el-icon-hot-water',
+      //   gender: 1,
+      //   createTime: null,
+      //   price: "",
+      //   switchVal: 0,
+      //   tag: [1, 3, 3],
+      //   rate: 4.5,
+      //   content: '11111444444444444444444444444444444444444444444444444444444444444444444444',
+      //   videoUrl:
+      //     "https://video.699pic.com/videos/38/43/68/b_NP9VbhF5xkJN1587384368_10s.mp4",
+      //   imageUrl: "https://seopic.699pic.com/photo/50102/4339.jpg_wh1200.jpg",
+      //   href: "https://seopic.699pic.com/photo/50102/4339.jpg_wh1200.jpg",
+      //   data: new Date(),
+      //   children: [{
+      //     id: 4,
+      //     name: "蓝猫",
+      //     icon: 'el-icon-hot-water',
+      //     gender: 4,
+      //     createTime: null,
+      //     price: "",
+      //     switchVal: 1,
+      //     tag: [1, 2, 3],
+      //     rate: 4,
+      //     content: '22222444444444444444444444444444444444444444444444444444444444444444444444',
+      //     videoUrl:
+      //       "https://video.699pic.com/videos/38/43/68/b_NP9VbhF5xkJN1587384368_10s.mp4",
+      //     imageUrl: "https://seopic.699pic.com/photo/50102/4339.jpg_wh1200.jpg",
+      //     data: new Date()
+      //   }]
+      // },
+      {
+        id: 1,
+        name: "蓝猫",
+        icon: 'el-icon-hot-water',
+        gender: 2,
+        createTime: null,
+        price: "",
+        switchVal: 1,
+        tag: '1,2,3',
+        rate: 4.5,
+        content: '3333444444444444444444444444444444444444444444444444444444444444444444444',
+        videoUrl:
+          "https://video.699pic.com/videos/38/43/68/b_NP9VbhF5xkJN1587384368_10s.mp4",
+        href: "https://seopic.699pic.com/photo/50102/4339.jpg_wh1200.jpg",
+        imageUrl: "https://seopic.699pic.com/photo/50102/4339.jpg_wh1200.jpg",
+        data: new Date('2021/12/31')
+      }
+    ],
     isPC: true,
     isTable: true,
   });

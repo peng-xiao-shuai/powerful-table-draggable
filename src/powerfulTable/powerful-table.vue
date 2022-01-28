@@ -14,7 +14,7 @@
               @change="log"
               :move="checkMove"
               :group="{
-                name: 'people',
+                name: item.group,
                 pull: 'clone',
                 put: false,
               }"
@@ -30,83 +30,67 @@
     </pane>
     <pane min-size="50">
       <draggable
-        class="dragArea list-group w-full"
-        :list="views"
+        class="drag-views"
+        :list="header"
         @change="log"
         :move="checkMove"
-        group="people"
+        :group="GroupName.People"
       >
-        <div
-          class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center"
-          v-for="(item, index) in views"
+        <RenderView
+          v-for="(item, index) in header"
           :key="index"
+          :item="item"
+          :index="index"
         >
-          <component :is="item.componentName"></component>
-        </div>
+        </RenderView>
       </draggable>
     </pane>
     <pane min-size="20" max-size="30">
-      <span>1</span>
+      <ConfigData></ConfigData>
     </pane>
   </splitpanes>
 </template>
 <script lang="ts">
-import { defineComponent, ref, reactive } from 'vue'
+import { defineComponent, provide, reactive } from 'vue'
 import { Search } from '@element-plus/icons-vue';
 import { VueDraggableNext } from 'vue-draggable-next'
+import RenderView from './components/RenderView';
+import ConfigData from './components/ConfigData';
 import { Splitpanes, Pane } from 'splitpanes'
 import 'splitpanes/dist/splitpanes.css'
+import { PowerfulTableHeader } from 'el-plus-powerful-table-ts';
+// 视图的数据 相当于powerful-table-ts 组件的 header
+import { listComponent, header, GroupName } from '@/modules/index';
+
+// 获取 布局方向
+const justifyFun = (val: string) => {
+  const bol = ["center", "left", "right"].includes(val);
+  return bol
+    ? { center: "center", left: "flex-start", right: "flex-end" }[val]
+    : "center";
+};
 export default defineComponent({
   components: {
     Search,
     draggable: VueDraggableNext,
+    RenderView,
+    ConfigData,
     Splitpanes,
-    Pane,
+    Pane
   },
   setup() {
-    const components = ref([{
-      label: '表格组件',
-      list: [
-        {
-          name: 'Switch', id: 1,
-          label: '开关',
-          icon: 'Search',
-        },
-        {
-          name: 'Button', id: 2, label: '开关',
-          icon: 'Search',
-        },
-        {
-          name: 'Rate', id: 3, label: '开关',
-          icon: 'Search',
-        }
-      ]
-    }, {
-      label: '表格配置组件',
-      list: [
-        {
-          name: 'Switch', id: 1, label: '开关',
-          icon: Search,
-        },
-        {
-          name: 'Button', id: 2, label: '开关',
-          icon: Search,
-        },
-        {
-          name: 'Rate', id: 3, label: '开关',
-          icon: Search,
-        }
-      ]
-    }])
-    // 视图的数据
-    const views = ref([{
-      componentName: 'el-switch',
-      props: {
-        value: 1
+    provide("justifyFun", justifyFun);
+    const components = listComponent
+    const data = reactive({})
+    const log = ({ added }: { added: {element: any, newIndex: number}}) => {
+      if (!added) return
+      
+      switch (added.element.type) {
+        case 'layout':
+          header.value[added.newIndex] = JSON.parse(JSON.stringify(added.element.data))
+          break
+        default:
       }
-    }])
-    const log = (event: any) => {
-      console.log(event)
     }
     const checkMove = (evt: any) => {
       console.log(evt);
@@ -114,7 +98,8 @@ export default defineComponent({
     }
     return {
       components,
-      views,
+      GroupName,
+      header,
       log,
       checkMove
     }
@@ -169,4 +154,5 @@ export default defineComponent({
    }
   }
 }
+
 </style>
