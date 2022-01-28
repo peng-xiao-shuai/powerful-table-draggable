@@ -1,0 +1,27 @@
+.render-views-table {
+  display: inline-block;
+  .el-table__body-wrapper {
+    overflow-x: hidden;
+  }
+  .el-table__body .cell {
+    border: 1px dashed #ccc;
+    margin: 0 10px;
+    // height: 100px;
+    padding: 0 !important;
+  }
+}
+
+.splitpanes__pane > .drag-views {
+  display: flex;
+  align-items: flex-start;
+}
+
+.drag-views {
+  width: 100%;
+  min-height: 100px;
+  &-prop {
+    padding: 10px;
+    margin: 2px;
+    border: 1px dashed #ccc;
+  }
+}
