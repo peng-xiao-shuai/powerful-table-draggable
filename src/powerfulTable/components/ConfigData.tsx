@@ -16,6 +16,11 @@ export default defineComponent({
         {data.type
           ? <el-form model={getCurrentData()} label-position='top' class="config-data-form">
               {
+                data.type === 'layout'
+                ? ""
+                : <components.common></components.common>
+              }
+              {
                 { 
                   'layout': <components.Layout></components.Layout>,
                   'btn': 'Button',
