@@ -6,6 +6,7 @@ import { VueDraggableNext as Draggable } from 'vue-draggable-next'
 import { header, GroupName, data } from '@/modules/index';
 
 export default defineComponent({
+  name: 'RenderView',
   components: {
     Draggable
   },
@@ -36,7 +37,7 @@ export default defineComponent({
       // 重新赋值
       (header.value[props.index].props as PowerfulTableHeaderProps[])[added.newIndex] = {
         prop: `${added.element.type}-${new Date().getTime()}`,
-        data: added.element.data,
+        data: JSON.parse(JSON.stringify(added.element.data)),
         type: added.element.type,
         filter: [],
         text: '',
@@ -48,7 +49,6 @@ export default defineComponent({
 
     return () => (
       <>
-        {item.value}
         <el-table
           class="render-views-table"
           data={state.tableLists}
@@ -73,13 +73,18 @@ export default defineComponent({
           <el-table-column
             v-slots={{
               default: (scope: any) => (
-                <Draggable class={['drag-views', data.headerIndex == props.index && data.propsIndex == -1 ? 'active' : '']} list={item.value.props as PowerfulTableHeaderProps[]} onChange={log} group={GroupName.Layout}>
+                <Draggable
+                  class={['drag-views', data.headerIndex == props.index && data.propsIndex == -1 ? 'active' : '']}
+                  list={item.value.props as PowerfulTableHeaderProps[]}
+                  onChange={log}
+                  group={GroupName.Layout}
+                >
                   {Array.isArray(item.value.props) && item.value.props.length
                     ? item.value.props.map((prop, index) => (
                         <div class={['drag-views-prop', data.headerIndex == props.index && data.propsIndex == index ? 'active' : '']} onClick={(e: Event) => {
                           e.stopPropagation()
                           data.headerIndex = props.index,
-                          data.propsIndex = scope.$index,
+                          data.propsIndex = index,
                           data.type = prop.type
                         }}>
                           { matchComponents(prop.type, scope, prop, props) }
