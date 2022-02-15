@@ -340,3 +340,6 @@ export const useFunction = (emit: Function, powerfulTableData: PowerfulTableData
     matchComponents
   }
 }
+
+// 拖拽悬浮时样式名称
+export const draggableHoverStyle = ref({})

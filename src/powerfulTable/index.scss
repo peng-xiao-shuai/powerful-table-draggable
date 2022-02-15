@@ -12,6 +12,7 @@
 
 .render-views-table {
   display: inline-block;
+
   .el-table__body-wrapper {
     overflow-x: hidden;
   }
@@ -37,7 +38,21 @@
 .drag-views {
   width: 100%;
   min-height: 100px;
+  height: 100%;
   transition: all .2s;
+  & .left-components-item.sortable-chosen.sortable-ghost {
+    height: 100%;
+    width: 2px;
+    border: none;
+    border-radius: 0;
+    font-size: 0;
+    margin: 0 5px;
+    padding: 0;
+    // box-shadow: transparent;
+    // overflow: hidden;
+    background: transparent;
+    border-left: 2px solid var(--el-color-primary);
+  }
   
   &-prop {
     padding: 10px;

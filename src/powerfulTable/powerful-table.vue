@@ -19,7 +19,7 @@
                 put: false,
               }"
             >
-            <div v-for="each in item.list" :key="each.label" class="left-components-item">
+            <div v-for="each in item.list" :key="each.label" class="left-components-item" :style="draggableHoverStyle">
               <el-icon>
                 <component :is="each.icon"></component>
               </el-icon>
@@ -38,7 +38,7 @@
       >
         <RenderView
           v-for="(item, index) in header"
-          :key="index"
+          :key="item.label + index"
           :item="item"
           :index="index"
         >
@@ -59,6 +59,7 @@ import ConfigData from './components/ConfigData';
 import { Splitpanes, Pane } from 'splitpanes'
 import 'splitpanes/dist/splitpanes.css'
 import { PowerfulTableHeader } from 'el-plus-powerful-table-ts';
+import { draggableHoverStyle } from './powerful-table';
 // 视图的数据 相当于powerful-table-ts 组件的 header
 import { listComponent, header, GroupName } from '@/modules/index';
 
@@ -79,6 +80,7 @@ export default defineComponent({
     Pane
   },
   setup() {
+    provide("size", "small");
     provide("justifyFun", justifyFun);
     const components = listComponent
     const data = reactive({})
@@ -93,13 +95,29 @@ export default defineComponent({
       }
     }
     const checkMove = (evt: any) => {
-      console.log(evt);
-      return (evt.draggedContext.element.name !== 'apple');
+      // 判断是否是 GroupName.Layout（竖线） 还是 GroupName.People（横线）。根据to的宽度和relatedRect.width的宽度比较
+      // 10作为一个精度
+      const line = evt.to.clientWidth - evt.relatedRect.width > 10 ? 'vertical' : 'horizontal'
+      
+      draggableHoverStyle.value = line == 'vertical' 
+        ? {
+          borderLeft: '2px solid var(--el-color-primary)',
+          height: evt.relatedRect.height + 'px',
+          width: '2px'
+        }
+        : {
+          borderTop: '2px solid var(--el-color-primary)',
+          height: '2px',
+          width: '100%'
+        }
+        
+      return true
     }
     return {
       components,
       GroupName,
       header,
+      draggableHoverStyle,
       log,
       checkMove
     }
@@ -110,7 +128,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .left {
   padding: 0 10px;
-  & > span {
+  > span {
     font-weight: bold;
     color: #333;
     font-size: 14px;
@@ -118,18 +136,21 @@ export default defineComponent({
     display: inline-block;
   }
 
-  &-components {
+  > .left-components {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
 
-    &-item:nth-child(even) {
+    > .left-components-item:nth-child(even) {
       margin-left: 10px;
-      width: calc(50% - 10px);
+      width: calc(50% - 10px) !important;
     }
-    &-item {
+    > .left-components-item {
+      // 替换样式
+      border: none !important;
+      width: 50% !important;
+      height: auto !important;
       box-sizing: border-box;
-      width: 50%;
       background: #fff;
       color: #666;
       display: flex;
@@ -154,5 +175,4 @@ export default defineComponent({
    }
   }
 }
-
 </style>
