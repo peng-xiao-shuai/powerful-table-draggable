@@ -23,7 +23,7 @@ export default defineComponent({
               {
                 { 
                   'layout': <components.Layout></components.Layout>,
-                  'btn': 'Button',
+                  'btn': <components.Button></components.Button>,
                   'switch': 'Switch',
                   'input': <components.Input></components.Input>,
                   'textarea': 'Input',
