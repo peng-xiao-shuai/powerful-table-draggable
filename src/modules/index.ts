@@ -1,5 +1,5 @@
 import { reactive, ref } from 'vue';
-import { PowerfulTableHeader, PowerfulTableHeaderProps } from 'el-plus-powerful-table-ts';
+import { PowerfulTableHeader } from 'el-plus-powerful-table-ts';
 import { componentAttr } from '#/modules';
 type BasicsComponents = {
   attr?: componentAttr,
@@ -25,7 +25,16 @@ const otherComponents: BasicsComponents = import.meta.globEager('./OtherComponen
 // 左侧视图组件数据
 const listComponent: ListComponent[] = []
 // 主视图渲染所需配置数据 并且右侧参数视图直接修改此变量
-const header = ref<PowerfulTableHeader[]>([])
+const header = ref<PowerfulTableHeader[]>([{
+  fixed: false,
+  sortable: false,
+  headerAlign: 'center',
+  overflowTooltip: false,
+  props: [],
+  label: '布局容器',
+  minWidth: 80,
+  width: 100
+}])
 // 右侧视图参数配置，数据由 header 提供
 const data = reactive<{
   headerIndex: number,
@@ -35,13 +44,13 @@ const data = reactive<{
 }>({
   headerIndex: 0,
   propsIndex: 0,
-  type: undefined
+  type: 'layout'
 })
 
 // 所有 default 导出的 tsx
 const components: {[k:string]: any} = {}
 
-const getCurrentData = (): PowerfulTableHeader | PowerfulTableHeaderProps => {
+const getCurrentData = <T = PowerfulTableHeader>(): T => {
   return data.type == 'layout' ? header.value[data.headerIndex] : (header.value[data.headerIndex].props as any[])[data.propsIndex]
 }
 
@@ -51,7 +60,8 @@ const setAttrs = (source: BasicsComponents, label: string, group: string = Group
     const moduleName = modulePath.replace(/^\.\/.*\/(.*)\.\w+$/, '$1')
     components[moduleName] = source[modulePath].default
     
-    attrs.push(source[modulePath].attr)
+    // 部分文件里面没有attr 列入 common.tsx
+    source[modulePath].attr && attrs.push(source[modulePath].attr)
   })
   listComponent.push({
     label,
