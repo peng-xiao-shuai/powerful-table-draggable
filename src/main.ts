@@ -11,9 +11,8 @@ import './powerfulTable/index.scss';
 import '@/modules/index';
 
 const app = createApp(App)
-app.use(ElementPlus)
-app.use(powerfulTable, {
-	// btnSlot: 'all',
-	// locale: zhCn
+app.use(ElementPlus, {
+	size: 'small'
 })
+app.use(powerfulTable)
 app.mount("#app")
