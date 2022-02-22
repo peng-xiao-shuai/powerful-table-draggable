@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+}
+
 // 栅格布局
 .grid {
   display: grid;
@@ -12,6 +16,25 @@
 
 .render-views-table {
   display: inline-block;
+  padding: 4px;
+  box-sizing: content-box;
+  transition: all .2s;
+
+  &::before {
+    display: none;
+  }
+
+  & + .render-views-table {
+    margin-left: 5px;
+  }
+
+  &.isActive{
+    background: rgba(8, 76, 179, 0.486) !important;
+  }
+
+  &:hover {
+    background: rgb(247, 247, 247);
+  }
 
   .el-table__body-wrapper {
     overflow-x: hidden;
@@ -36,13 +59,13 @@
 }
 
 .drag-views {
+  padding: 2px;
+  background: #fff;
   width: 100%;
   min-height: 100px;
   height: 100%;
   transition: all .2s;
   & .left-components-item.sortable-chosen.sortable-ghost {
-    height: 100%;
-    width: 2px;
     border: none;
     border-radius: 0;
     font-size: 0;
@@ -58,6 +81,10 @@
     padding: 10px;
     margin: 2px;
     border: 1px dashed #ccc;
+  }
+
+  & .el-table__cell {
+    border: none !important;
   }
 }
 
