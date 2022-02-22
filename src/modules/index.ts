@@ -54,7 +54,7 @@ const getCurrentData = <T = PowerfulTableHeader>(): T => {
   return data.type == 'layout' ? header.value[data.headerIndex] : (header.value[data.headerIndex].props as any[])[data.propsIndex]
 }
 
-const setAttrs = (source: BasicsComponents, label: string, group: string = GroupName.People) => {
+const setAttrs = (source: BasicsComponents, label: string, group: GroupName = GroupName.People) => {
   const attrs: componentAttr[] = []
   Object.keys(source).forEach(modulePath => {
     const moduleName = modulePath.replace(/^\.\/.*\/(.*)\.\w+$/, '$1')
