@@ -11,8 +11,6 @@ import './powerfulTable/index.scss';
 import '@/modules/index';
 
 const app = createApp(App)
-app.use(ElementPlus, {
-	size: 'small'
-})
+app.use(ElementPlus)
 app.use(powerfulTable)
 app.mount("#app")
