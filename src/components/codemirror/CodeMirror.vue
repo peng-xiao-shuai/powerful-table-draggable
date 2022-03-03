@@ -8,8 +8,7 @@ import CodeMirror from 'codemirror';
 import { MODE } from './codeMirror';
 // css
 import './codemirror.css';
-import 'codemirror/theme/idea.css';
-import 'codemirror/theme/material-palenight.css';
+import 'codemirror/theme/mdn-like.css';
 // modes
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/css/css';
@@ -52,7 +51,7 @@ watchEffect(() => {
 const setTheme = () => {
   editor?.setOption(
     'theme',
-    'idea'
+    'mdn-like'
   );
 }
 
@@ -69,7 +68,7 @@ async function init() {
     mode: props.mode,
     readOnly: props.readonly,
     tabSize: 2,
-    theme: 'material-palenight',
+    theme: 'mdn-like',
     lineWrapping: true,
     lineNumbers: true,
     ...addonOptions,
@@ -77,6 +76,8 @@ async function init() {
   editor?.setValue(props.value);
   setTheme();
   editor?.on('change', () => {
+    console.log(editor?.getValue());
+    
     emit('change', editor?.getValue());
   });
 }
@@ -86,9 +87,3 @@ onMounted(async () => {
   init();
 });
 </script>
-
-<style lang="scss" scoped>
-.editor {
-  height: 100%;
-}
-</style>
