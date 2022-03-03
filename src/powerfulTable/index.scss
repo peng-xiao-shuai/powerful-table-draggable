@@ -16,9 +16,10 @@ body {
 
 .render-views-table {
   display: inline-block;
-  padding: 4px;
+  padding: 2px;
   box-sizing: content-box;
-  transition: all .2s;
+  transition: all .1s;
+  border-radius: 4px;
 
   &::before {
     display: none;
@@ -29,7 +30,7 @@ body {
   }
 
   &.isActive{
-    background: rgba(8, 76, 179, 0.486) !important;
+    background: var(--el-color-primary) !important;
   }
 
   &:hover {
