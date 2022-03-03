@@ -47,10 +47,10 @@ export default defineComponent({
         icon={item.icon || ''}
         disabled={item.disabled || false}
         type={item.type || 'primary'}
-        onClick={(e:Event) => {
-          e.stopPropagation()
-          !item.isMore && btnChange(item, props.row, props.index as number, item.type || 'primary' )
-        }}
+        // onClick={(e:Event) => {
+        //   e.stopPropagation()
+        //   !item.isMore && btnChange(item, props.row, props.index as number, item.type || 'primary' )
+        // }}
       >
         { typeof item.text != 'string'  ? item.tip : item.text }
       </el-button>

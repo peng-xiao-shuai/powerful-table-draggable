@@ -16,7 +16,7 @@ export const attr: componentAttr<InputDataType> = createAttr<InputDataType>('输
 export default defineComponent({
   setup() {
     const getFormData = () => (getCurrentData<PowerfulTableHeaderProps<any, InputDataType>>().data as InputDataType)
-
+    
     return () => (
       <>
         <div class="grid grid-c-2">

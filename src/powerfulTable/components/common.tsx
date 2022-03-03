@@ -1,5 +1,6 @@
 import Input from './input';
 import Button from './button';
+import Image from './image';
 import { QuestionFilled } from '@element-plus/icons-vue';
 /**
  * 匹配组件
@@ -15,7 +16,7 @@ export const matchComponents = (type: string = 'text', scope: any, prop: any, pr
   }
   
   return { 
-    'image': 'Image',
+    'image': <Image { ...bindProp }></Image>,
     'btn': <Button { ...bindProp }></Button>,
     'switch': 'Switch',
     'input': <Input { ...bindProp }></Input>,

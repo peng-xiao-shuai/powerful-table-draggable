@@ -26,6 +26,7 @@ export default defineComponent({
                   'btn': <components.Button></components.Button>,
                   'switch': 'Switch',
                   'input': <components.Input></components.Input>,
+                  'image': <components.Image></components.Image>,
                   'textarea': 'Input',
                   'iconfont': 'Icon',
                   'tag': 'Tags',
