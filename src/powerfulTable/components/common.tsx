@@ -2,17 +2,18 @@ import Input from './input';
 import Button from './button';
 import Image from './image';
 import { QuestionFilled } from '@element-plus/icons-vue';
+import { PowerfulTableHeader } from 'el-plus-powerful-table-ts';
 /**
  * 匹配组件
  * @param {string} type 类型
  * @returns 组件名称
  */
-export const matchComponents = (type: string = 'text', scope: any, prop: any, props: any) => {
+export const matchComponents = (type: string = 'text', scope: any, prop: any, item: PowerfulTableHeader) => {
   const bindProp = {
     row: scope.row,
     index: scope.$index,
     prop,
-    aligning: props.item.headerAlign || 'center',
+    aligning: item.headerAlign || 'center',
   }
   
   return { 
