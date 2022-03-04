@@ -27,7 +27,8 @@ export default defineComponent({
                   proxy.$message.warning('最后一个，不能删除！')
                   return
                 }
-                if (props.index >= header.value.length - 1) data.headerIndex = props.index - 1
+                
+                if (data.headerIndex >= header.value.length - 1) data.headerIndex = data.headerIndex - 1
                 header.value.splice(props.index, 1)
               }
             }}>
