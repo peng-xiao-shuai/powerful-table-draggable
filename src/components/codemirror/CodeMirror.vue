@@ -8,7 +8,7 @@ import CodeMirror from 'codemirror';
 import { MODE } from './codeMirror';
 // css
 import './codemirror.css';
-import 'codemirror/theme/mdn-like.css';
+import 'codemirror/theme/idea.css';
 // modes
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/css/css';
@@ -51,7 +51,7 @@ watchEffect(() => {
 const setTheme = () => {
   editor?.setOption(
     'theme',
-    'mdn-like'
+    'idea'
   );
 }
 
@@ -76,8 +76,6 @@ async function init() {
   editor?.setValue(props.value);
   setTheme();
   editor?.on('change', () => {
-    console.log(editor?.getValue());
-    
     emit('change', editor?.getValue());
   });
 }
