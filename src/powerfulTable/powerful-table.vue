@@ -94,13 +94,11 @@ export default defineComponent({
 
     const log = ({ added }: { added: {element: any, newIndex: number}}, e: any) => {
       data.headerIndex = dragIndex.value
-      console.log(data.headerIndex);
-      
       
       if (!added) return
       switch (added.element.type) {
         case 'layout':
-          header.value[added.newIndex] = {...added.element.data}
+          header.value[added.newIndex] = JSON.parse(JSON.stringify(added.element.data))
           break
         default:
       }

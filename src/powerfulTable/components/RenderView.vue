@@ -34,15 +34,15 @@
           <Draggable
             :class="['drag-views', data.headerIndex == index && data.propsIndex == -1 ? 'active' : '']"
             :list="(item.props as any[])"
-            @change="log"
+            @change="handleChange"
             :group="GroupName.Layout"
           >
             <template v-if="Array.isArray(item.props) && item.props.length">
-              <div v-for="(prop, index) in item.props" :class="['drag-views-prop', data.headerIndex == index && data.propsIndex == index ? 'active' : '']"
+              <div v-for="(prop, idx) in item.props" :class="['drag-views-prop', data.headerIndex == index && data.propsIndex == idx ? 'active' : '']"
                 @click="(e: Event) => {
                 e.stopPropagation()
                 data.headerIndex = index,
-                data.propsIndex = index,
+                data.propsIndex = idx,
                 data.type = prop.type
               }">
                 <RenderDom :type="prop.type" :scope="scope" :prop="prop" :item="item"></RenderDom>
@@ -78,7 +78,7 @@ export default defineComponent({
             item: Object as PropType<PowerfulTableHeader>
         },
         setup(props) {
-            return () => matchComponents(props.type, props.scope, props.prop, props.item);
+          return () => matchComponents(props.type, props.scope, props.prop, props.item);
         }
     }
 },
@@ -100,7 +100,7 @@ export default defineComponent({
       rowClick,
      } = useFunction(emit, powerfulTableData)
 
-    const log = ({ added }: { added: {element: any, newIndex: number}}) => {
+    const handleChange = ({ added }: { added: {element: any, newIndex: number}}) => {
       console.log(added, '拦截');
       
       // 拦截      
@@ -123,7 +123,7 @@ export default defineComponent({
       sortChange,
       rowClick,
       matchComponents,
-      log,
+      handleChange,
       state,
       GroupName,
       data
