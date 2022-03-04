@@ -6,11 +6,6 @@ export default defineComponent({
     ...components
   },
   setup() {
-    watch(data, val => {
-      console.log(data);
-    }, {
-      deep: true
-    })
     return () => (
       <>
         {data.type

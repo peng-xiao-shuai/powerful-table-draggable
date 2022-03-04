@@ -39,6 +39,7 @@
         :move="checkMove"
         :group="GroupName.People"
         style="padding: 10px;"
+        :animation="200"
       >
         <RenderView
           v-for="(item, index) in header"
@@ -138,6 +139,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.flip-list-move {
+  transition: transform 0.5s;
+}
 .left {
   padding: 0 20px;
   > span {
