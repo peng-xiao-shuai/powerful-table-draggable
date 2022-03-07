@@ -4,8 +4,9 @@ import { ImageDataType, PowerfulTableHeaderProps } from 'el-plus-powerful-table-
 import { defineComponent } from 'vue';
 import { getCurrentData } from "@/modules/index"
 import { imageFitOption } from '@/modules/dict';
+import { Picture } from '@element-plus/icons-vue';
 
-export const attr: componentAttr<ImageDataType> = createAttr<ImageDataType>('图片', 'image', '', {
+export const attr: componentAttr<ImageDataType> = createAttr<ImageDataType>('图片', 'image', <Picture />, {
   preview: false,
   lazy: false,
   zIndex: 2000,

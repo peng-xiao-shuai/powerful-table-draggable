@@ -5,7 +5,7 @@ import { getCurrentData, data } from "@/modules/index"
 import { defineComponent, Ref, ref, watch } from 'vue';
 import { themeOptions } from '@/modules/dict';
 import { FormItemLabelToolTip } from '@/powerfulTable/components/common';
-import { Plus, ArrowLeftBold, ArrowRightBold } from '@element-plus/icons-vue';
+import { Plus, ArrowLeftBold, ArrowRightBold, Files } from '@element-plus/icons-vue';
 const defineBtnData: BtnDataType = {
   tip: '',
   icon: '',
@@ -19,7 +19,7 @@ const defineBtnData: BtnDataType = {
   params: {}
 }
 
-export const attr: componentAttr<BtnDataType[]> = createAttr<BtnDataType[]>('按钮', 'btn', '', [defineBtnData])
+export const attr: componentAttr<BtnDataType[]> = createAttr<BtnDataType[]>('按钮', 'btn', <Files />, [defineBtnData])
 
 export default defineComponent({
   setup() {

@@ -20,9 +20,8 @@
               }"
             >
             <div v-for="each in item.list" :key="each.label" class="left-components-item" :style="draggableHoverStyle">
-              <!-- <el-icon>
-                <component :is="each.icon"></component>
-              </el-icon> -->
+              <!-- 直接写component :is 的话会有警告，通过使用tsx写法没有警告 -->
+              <RenderIcon :icon="each.icon"></RenderIcon>
               <span>{{each.label}}</span>
             </div>
           </draggable>
@@ -56,12 +55,13 @@
   </splitpanes>
 </template>
 <script lang="ts">
-import { defineComponent, provide, ref, watch } from 'vue'
+import { defineComponent, PropType, provide, ref, Component } from 'vue'
 import { Search } from '@element-plus/icons-vue';
 import { VueDraggableNext } from 'vue-draggable-next'
 import RenderView from './components/RenderView.vue';
 import RenderHeader from './components/RenderHeader.vue';
 import ConfigData from './components/ConfigData';
+import { leftRenderIcon } from './components/common';
 import { Splitpanes, Pane } from 'splitpanes'
 import 'splitpanes/dist/splitpanes.css'
 import { draggableHoverStyle } from './powerful-table';
@@ -83,7 +83,18 @@ export default defineComponent({
     RenderHeader,
     ConfigData,
     Splitpanes,
-    Pane
+    Pane,
+    RenderIcon: {
+      props: {
+        icon: {
+          type: [Object, String] as PropType<Component | string>,
+          default: () => {}
+        }
+      },
+      setup(props) {
+        return () => leftRenderIcon(props.icon)
+      }
+    }
   },
   setup() {
     provide("size", "small");

@@ -4,8 +4,9 @@ import { InputDataType, PowerfulTableHeaderProps } from 'el-plus-powerful-table-
 import { defineComponent } from 'vue';
 import { getCurrentData } from "@/modules/index"
 import { inputSlotDirection, disabledOptions } from '@/modules/dict';
+import { EditPen } from '@element-plus/icons-vue';
 
-export const attr: componentAttr<InputDataType> = createAttr<InputDataType>('输入框', 'input', '', {
+export const attr: componentAttr<InputDataType> = createAttr<InputDataType>('输入框', 'input', <EditPen />, {
   symbol: undefined,
   placeholder: '',
   disabled: false,

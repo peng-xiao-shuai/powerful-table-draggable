@@ -3,6 +3,7 @@ import Button from './button';
 import Image from './image';
 import { QuestionFilled } from '@element-plus/icons-vue';
 import { PowerfulTableHeader } from 'el-plus-powerful-table-ts';
+import { Component } from 'vue';
 /**
  * 匹配组件
  * @param {string} type 类型
@@ -45,3 +46,14 @@ export const FormItemLabelToolTip = (label: string, content: string, placement: 
     </>
   )
 })
+
+/**
+ * 视图左侧icon
+ */
+ export const leftRenderIcon = (icon: Component) => (
+  <>
+    <el-icon style="margin-right: 5px">
+      { icon }
+    </el-icon>
+  </>
+)
