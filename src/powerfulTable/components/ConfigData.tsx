@@ -45,7 +45,14 @@ export default defineComponent({
           ? 
           <>
             <div style="background: #fff; padding: 10px; display: flex;justify-content: space-between; align-items: center;">
-              <b>{currentAttr.value?.label}</b> 
+              {/* 左侧文字和图标 */}
+              <div style="display: flex; align-items: center;">
+                <el-icon style="margin-right: 10px; font-size: 18px">
+                  { currentAttr.value?.icon }
+                </el-icon>
+                <b>{currentAttr.value?.label}</b> 
+              </div>
+              {/* 右侧操作按钮 */}
               {
                 data.type !== 'layout'
                 ? <div>
