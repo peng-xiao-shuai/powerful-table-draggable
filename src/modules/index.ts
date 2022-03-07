@@ -1,4 +1,4 @@
-import { reactive, ref } from 'vue';
+import { reactive, ref, computed } from 'vue';
 import { PowerfulTableHeader } from 'el-plus-powerful-table-ts';
 import { componentAttr } from '#/modules';
 type BasicsComponents = {
@@ -24,6 +24,8 @@ const otherComponents: BasicsComponents = import.meta.globEager('./OtherComponen
 
 // 左侧视图组件数据
 const listComponent: ListComponent[] = []
+// 所有左侧组件
+let attrsLists: componentAttr[] = []
 // 主视图渲染所需配置数据 并且右侧参数视图直接修改此变量
 const header = ref<PowerfulTableHeader[]>([{
   fixed: false,
@@ -46,6 +48,10 @@ const data = reactive<{
   propsIndex: 0,
   type: 'layout'
 })
+// 辅助数据
+const currentAttr = computed(() => {
+  return attrsLists.find(item => item.type == data.type)
+})
 
 // 所有 default 导出的 tsx
 const components: {[k:string]: any} = {}
@@ -63,6 +69,7 @@ const setAttrs = (source: BasicsComponents, label: string, group: GroupName = Gr
     // 部分文件里面没有attr 列入 common.tsx
     source[modulePath].attr && attrs.push(source[modulePath].attr)
   })
+  attrsLists = attrsLists.concat(attrs)
   listComponent.push({
     label,
     group,
@@ -79,5 +86,6 @@ export {
   header,
   data,
   components,
+  currentAttr,
   getCurrentData
 }
