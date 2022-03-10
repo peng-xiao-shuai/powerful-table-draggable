@@ -4,7 +4,7 @@ import { BtnDataType, PowerfulTableHeaderProps } from 'el-plus-powerful-table-ts
 import { getCurrentData, data } from "@/modules/index"
 import { defineComponent, Ref, ref, watch } from 'vue';
 import { themeOptions } from '@/modules/dict';
-import { FormItemLabelToolTip } from '@/powerfulTable/components/common';
+import { FormItemLabelToolTip } from '@/components/common';
 import { Plus, ArrowLeftBold, ArrowRightBold, Files } from '@element-plus/icons-vue';
 const defineBtnData: BtnDataType = {
   tip: '',

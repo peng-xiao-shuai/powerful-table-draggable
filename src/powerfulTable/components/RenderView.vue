@@ -59,7 +59,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import { PowerfulTableHeader, PowerfulTableHeaderProps } from 'el-plus-powerful-table-ts';
-import { matchComponents } from './common';
+import { matchComponents } from '../../components/common';
 import { useFunction, useState } from '../powerful-table';
 import { VueDraggableNext as Draggable } from 'vue-draggable-next'
 import { header, GroupName, data } from '@/modules/index';

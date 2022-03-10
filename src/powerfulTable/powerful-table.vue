@@ -49,7 +49,7 @@
         </RenderView>
       </draggable>
     </pane>
-    <pane min-size="20" max-size="30">
+    <pane class="right-view" min-size="20" max-size="30">
       <ConfigData></ConfigData>
     </pane>
   </splitpanes>
@@ -61,7 +61,7 @@ import { VueDraggableNext } from 'vue-draggable-next'
 import RenderView from './components/RenderView.vue';
 import RenderHeader from './components/RenderHeader.vue';
 import ConfigData from './components/ConfigData';
-import { leftRenderIcon } from './components/common';
+import { leftRenderIcon } from '../components/common';
 import { Splitpanes, Pane } from 'splitpanes'
 import 'splitpanes/dist/splitpanes.css'
 import { draggableHoverStyle } from './powerful-table';

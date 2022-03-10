@@ -45,6 +45,12 @@ const handleOperate = (index: number) => {
   drawerData.index = index
 }
 const handleChange = (val: string) => {
+  try {
+    JSON.parse(val)
+  } catch (err) {
+    console.log('jSON编辑格式有误！');
+    return
+  }
   switch (drawerData.index) {
     case 1:
       header.value = JSON.parse(val)
