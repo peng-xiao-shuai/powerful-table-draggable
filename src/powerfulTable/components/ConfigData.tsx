@@ -1,10 +1,12 @@
-import { defineComponent, Component, watch } from "vue"
+import { defineComponent, Component, ref } from "vue"
 import { data, getCurrentData, header, components, currentAttr } from "@/modules/index"
 import { Delete, DocumentCopy } from '@element-plus/icons-vue';
 import { PowerfulTableHeaderProps } from 'el-plus-powerful-table-ts';
+import CodeMirror from '@/components/codemirror/CodeMirror.vue';
 
 export default defineComponent({
   components: {
+    CodeMirror,
     ...components
   },
   setup() {
@@ -39,55 +41,90 @@ export default defineComponent({
         </el-tooltip>
       </>
     )
+    // 插槽数据
+    const slots = (name: string, label: string) => ({
+      label: () => <span class={tabsValue.value == name ? 'isActive' : ''}>{ label }</span>
+    })
+    // json编辑区数据
+    const codeData = ref(JSON.stringify(data.type == 'layout' ? header.value[data.headerIndex] : (header.value[data.headerIndex].props as PowerfulTableHeaderProps[])[data.propsIndex], null, 2))
+    const tabsValue = ref('json')
+
     return () => (
       <>
-        {data.type
-          ? 
-          <>
-            <div style="background: #fff; padding: 10px; display: flex;justify-content: space-between; align-items: center;">
-              {/* 左侧文字和图标 */}
-              <div style="display: flex; align-items: center;">
-                <el-icon style="margin-right: 10px; font-size: 18px">
-                  { currentAttr.value?.icon }
-                </el-icon>
-                <b>{currentAttr.value?.label}</b> 
-              </div>
-              {/* 右侧操作按钮 */}
-              {
-                data.type !== 'layout'
-                ? <div>
-                  { btnList.map(item => TooltipButton(item)) }
-                </div>
-                : <span></span>
-              }
+        <div class="right-view-header">
+          {/* 左侧文字和图标 */}
+          <div style="display: flex; align-items: center;">
+            <el-icon style="margin-right: 10px; font-size: 18px">
+              { currentAttr.value?.icon }
+            </el-icon>
+            <b>{currentAttr.value?.label}</b> 
+          </div>
+          {/* 右侧操作按钮 */}
+          {
+            data.type !== 'layout'
+            ? <div>
+              { btnList.map(item => TooltipButton(item)) }
             </div>
-            <el-form model={getCurrentData()} label-position='top' class="config-data-form">
-                {
-                  data.type === 'layout'
-                  ? ""
-                  : <components.common></components.common>
-                }
-                {
-                  { 
-                    'layout': <components.Layout></components.Layout>,
-                    'btn': <components.Button></components.Button>,
-                    'switch': 'Switch',
-                    'input': <components.Input></components.Input>,
-                    'image': <components.Image></components.Image>,
-                    'textarea': 'Input',
-                    'iconfont': 'Icon',
-                    'tag': 'Tags',
-                    'rate': 'Rate',
-                    'text': <components.Text></components.Text>,
-                    'href': 'Link',
-                    'video': 'Video',
-                    'none':'None'
-                  }[data.type]
-                }
-              </el-form>
-            </>
-          : <div>0000</div>
-        }
+            : <span></span>
+          }
+        </div>
+        <el-tabs v-model={tabsValue.value} class="tabs">
+          <el-tab-pane name="form" v-slots={slots("form", "表单")}>
+            {data.type
+            ? 
+            <>
+              <el-form model={getCurrentData()} label-position="top" class="config-data-form">
+                  {
+                    data.type === 'layout'
+                    ? ""
+                    : <components.common />
+                  }
+                  {
+                    { 
+                      'layout': <components.Layout />,
+                      'btn': <components.Button />,
+                      'switch': <components.Switch />,
+                      'input': <components.Input />,
+                      'image': <components.Image />,
+                      'textarea': 'Input',
+                      'iconfont': 'Icon',
+                      'tag': 'Tags',
+                      'rate': <components.Rate />,
+                      'text': <components.Text />,
+                      'href': 'Link',
+                      'video': 'Video',
+                      'none':'None'
+                    }[data.type]
+                  }
+                </el-form>
+              </>
+            : <div>0000</div>
+          }  
+          </el-tab-pane>
+          <el-tab-pane name="json" v-slots={slots("json", "JSON")}>
+            {/* <el-scrollbar style="height: 100%"> */}
+              <CodeMirror
+                v-model:value={codeData.value}
+                onChange={(str: string) => {
+                  try {
+                    JSON.parse(str)
+                  } catch (err) {
+                    console.log('jSON编辑格式有误！');
+                    return
+                  }
+                  
+                  switch (data.type) {
+                    case 'layout':
+                      header.value[data.headerIndex] = JSON.parse(str)
+                      break
+                    default:
+                      (header.value[data.headerIndex].props as PowerfulTableHeaderProps[])[data.propsIndex] = JSON.parse(str)
+                  }
+                }}
+              ></CodeMirror>
+            {/* </el-scrollbar> */}
+          </el-tab-pane>
+        </el-tabs>
       </>
     )
   }
