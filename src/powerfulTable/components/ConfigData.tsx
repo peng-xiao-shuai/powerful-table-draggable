@@ -1,4 +1,4 @@
-import { defineComponent, Component, ref } from "vue"
+import { defineComponent, Component, ref, watch } from "vue"
 import { data, getCurrentData, header, components, currentAttr } from "@/modules/index"
 import { Delete, DocumentCopy } from '@element-plus/icons-vue';
 import { PowerfulTableHeaderProps } from 'el-plus-powerful-table-ts';
@@ -46,8 +46,15 @@ export default defineComponent({
       label: () => <span class={tabsValue.value == name ? 'isActive' : ''}>{ label }</span>
     })
     // json编辑区数据
-    const codeData = ref(JSON.stringify(data.type == 'layout' ? header.value[data.headerIndex] : (header.value[data.headerIndex].props as PowerfulTableHeaderProps[])[data.propsIndex], null, 2))
+    const codeData = ref("")
     const tabsValue = ref('json')
+    // 监听type 改变
+    watch(() => data, (val) => {
+      codeData.value = JSON.stringify(val.type == 'layout' ? header.value[val.headerIndex] : (header.value[val.headerIndex].props as PowerfulTableHeaderProps[])[val.propsIndex], null, 2)
+    }, {
+      immediate: true,
+      deep: true
+    })
 
     return () => (
       <>
