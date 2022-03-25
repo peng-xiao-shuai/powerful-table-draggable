@@ -1,6 +1,6 @@
 import { componentAttr } from '#/modules';
 import { createAttr } from '@/utils/index';
-import { BtnDataType, PowerfulTableHeaderProps } from 'el-plus-powerful-table-ts';
+import { BtnDataType, PowerfulTableHeaderProps } from 'el-plus-powerful-table-ts/global';
 import { getCurrentData, data } from "@/modules/index"
 import { defineComponent, Ref, ref, watch } from 'vue';
 import { themeOptions } from '@/modules/dict';

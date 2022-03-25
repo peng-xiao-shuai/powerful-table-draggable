@@ -1,13 +1,7 @@
-import Input from '../powerfulTable/components/input';
-import Button from '../powerfulTable/components/button';
-import Image from '../powerfulTable/components/image';
-import Switch from '../powerfulTable/components/switch';
-import Icon from '../powerfulTable/components/icon';
-import Tags from '../powerfulTable/components/tags';
-import Rate from '../powerfulTable/components/rate';
 import { QuestionFilled, Plus } from '@element-plus/icons-vue';
-import { PowerfulTableHeader } from 'el-plus-powerful-table-ts';
 import { Component, ref } from 'vue';
+import { PTButton, PTImage, PTSwitch, PTInput, PTIcon, PTTags, PTRate } from 'el-plus-powerful-table-ts';
+import { PowerfulTableHeader } from 'el-plus-powerful-table-ts/global';
 /**
  * 匹配组件
  * @param {string} type 类型
@@ -22,17 +16,17 @@ export const matchComponents = (type: string = 'text', scope: any, prop: any, it
   }
   
   return { 
-    'image': <Image { ...bindProp } />,
-    'btn': <Button { ...bindProp } />,
-    'switch': <Switch { ...bindProp } />,
-    'input': <Input { ...bindProp } />,
+    'image': <p-t-image { ...bindProp } />,
+    'btn': <p-t-button { ...bindProp } />,
+    'switch': <p-t-switch { ...bindProp } />,
+    'input': <p-t-input { ...bindProp } />,
     'text': <>文本</>,
-    'textarea': 'Input',
-    'iconfont': <Icon { ...bindProp } />,
-    'tag': <Tags { ...bindProp } />,
-    'rate': <Rate { ...bindProp } />,
-    'href': 'Link',
-    'video': 'Video',
+    'textarea': <p-t-input></p-t-input>,
+    'iconfont': <p-t-icon { ...bindProp } />,
+    'tag': <p-t-tags { ...bindProp } />,
+    'rate': <p-t-rate { ...bindProp } />,
+    'href': <p-t-link { ...bindProp } />,
+    'video': <p-t-video { ...bindProp } />,
     'layout':'layout'
   }[type]
 }

@@ -1,5 +1,5 @@
 import type { App } from 'vue';
-import { SFCWithInstall } from '../../types/powerful-table'
+import { SFCWithInstall } from 'el-plus-powerful-table-ts/global'
 import PowerfulTable from "./powerful-table.vue"
 PowerfulTable.install = (app: App, option: {}): void => {
   app.component(PowerfulTable.name, PowerfulTable)

@@ -1,5 +1,5 @@
 import { reactive, ref, computed } from 'vue';
-import { PowerfulTableHeader } from 'el-plus-powerful-table-ts';
+import { PowerfulTableHeader } from 'el-plus-powerful-table-ts/global';
 import { componentAttr } from '#/modules';
 type BasicsComponents = {
   attr?: componentAttr,

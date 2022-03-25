@@ -1,6 +1,6 @@
 import { componentAttr } from '#/modules';
 import { createAttr } from '@/utils/index';
-import { PowerfulTableHeader } from 'el-plus-powerful-table-ts';
+import { PowerfulTableHeader } from 'el-plus-powerful-table-ts/global';
 import { defineComponent } from 'vue';
 import { getCurrentData } from "@/modules/index"
 import { sortableOptions, fixedOptions, alignOptions } from "@/modules/dict"

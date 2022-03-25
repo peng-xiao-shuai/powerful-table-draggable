@@ -1,7 +1,7 @@
 import { defineComponent, Component, ref, watch } from "vue"
 import { data, getCurrentData, header, components, currentAttr } from "@/modules/index"
 import { Delete, DocumentCopy } from '@element-plus/icons-vue';
-import { PowerfulTableHeaderProps } from 'el-plus-powerful-table-ts';
+import { PowerfulTableHeaderProps } from 'el-plus-powerful-table-ts/global';
 import CodeMirror from '@/components/codemirror/CodeMirror.vue';
 
 export default defineComponent({

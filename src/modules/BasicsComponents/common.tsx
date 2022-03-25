@@ -1,4 +1,4 @@
-import { PowerfulTableHeaderProps } from 'el-plus-powerful-table-ts';
+import { PowerfulTableHeaderProps } from 'el-plus-powerful-table-ts/global';
 import { defineComponent } from 'vue';
 import { getCurrentData } from "@/modules/index"
 
