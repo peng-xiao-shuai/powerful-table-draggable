@@ -2,6 +2,7 @@ import { defineComponent, Component, ref, watch } from "vue"
 import { data, getCurrentData, header, components, currentAttr } from "@/modules/index"
 import { Delete, DocumentCopy } from '@element-plus/icons-vue';
 import { PowerfulTableHeaderProps } from 'el-plus-powerful-table-ts/global';
+import { BasicsComponentType, OtherComponentsType, GroupName } from '#/enums';
 import CodeMirror from '@/components/codemirror/CodeMirror.vue';
 
 export default defineComponent({
@@ -26,7 +27,7 @@ export default defineComponent({
         const copyHeader = header.value[data.headerIndex].props as PowerfulTableHeaderProps[]
         if (data.propsIndex >= copyHeader.length - 1) data.propsIndex = data.propsIndex - 1
         // 没有一个子元素则退回到layout
-        if (copyHeader.length == 1) data.type = 'layout'
+        if (copyHeader.length == 1) data.type = GroupName.Layout
         copyHeader.splice(data.propsIndex, 1)
       }
     }]
@@ -50,7 +51,7 @@ export default defineComponent({
     const tabsValue = ref('json')
     // 监听type 改变
     watch(() => data, (val) => {
-      codeData.value = JSON.stringify(val.type == 'layout' ? header.value[val.headerIndex] : (header.value[val.headerIndex].props as PowerfulTableHeaderProps[])[val.propsIndex], null, 2)
+      codeData.value = JSON.stringify(val.type == GroupName.Layout ? header.value[val.headerIndex] : (header.value[val.headerIndex].props as PowerfulTableHeaderProps[])[val.propsIndex], null, 2)
     }, {
       immediate: true,
       deep: true
@@ -68,7 +69,7 @@ export default defineComponent({
           </div>
           {/* 右侧操作按钮 */}
           {
-            data.type !== 'layout'
+            data.type !== GroupName.Layout
             ? <div>
               { btnList.map(item => TooltipButton(item)) }
             </div>
@@ -82,24 +83,24 @@ export default defineComponent({
             <>
               <el-form model={getCurrentData()} label-position="top" class="config-data-form">
                   {
-                    data.type === 'layout'
+                    data.type === GroupName.Layout
                     ? ""
                     : <components.common />
                   }
                   {
                     { 
-                      'layout': <components.Layout />,
-                      'btn': <components.Button />,
-                      'switch': <components.Switch />,
-                      'input': <components.Input />,
-                      'image': <components.Image />,
-                      'textarea': 'Input',
-                      'iconfont': 'Icon',
-                      'tag': 'Tags',
-                      'rate': <components.Rate />,
-                      'text': <components.Text />,
-                      'href': 'Link',
-                      'video': 'Video',
+                      [OtherComponentsType.Layout]: <components.Layout />,
+                      [BasicsComponentType.Btn]: <components.Button />,
+                      [BasicsComponentType.Switch]: <components.Switch />,
+                      [BasicsComponentType.Input]: <components.Input />,
+                      [BasicsComponentType.Image]: <components.Image />,
+                      [BasicsComponentType.Textarea]: 'Input',
+                      [BasicsComponentType.Iconfont]: <components.Icon />,
+                      [BasicsComponentType.Tag]: <components.Tag />,
+                      [BasicsComponentType.Rate]: <components.Rate />,
+                      [BasicsComponentType.Text]: <components.Text />,
+                      [BasicsComponentType.Link]: <components.Link />,
+                      [BasicsComponentType.Video]: <components.Video />,
                       'none':'None'
                     }[data.type]
                   }
@@ -121,7 +122,7 @@ export default defineComponent({
                   }
                   
                   switch (data.type) {
-                    case 'layout':
+                    case GroupName.Layout:
                       header.value[data.headerIndex] = JSON.parse(str)
                       break
                     default:

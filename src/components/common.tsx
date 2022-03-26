@@ -1,7 +1,7 @@
 import { QuestionFilled, Plus } from '@element-plus/icons-vue';
-import { Component, ref } from 'vue';
-import { PTButton, PTImage, PTSwitch, PTInput, PTIcon, PTTags, PTRate } from 'el-plus-powerful-table-ts';
+import { Component, Ref, ref } from 'vue';
 import { PowerfulTableHeader } from 'el-plus-powerful-table-ts/global';
+import { BasicsComponentType } from '#/enums';
 /**
  * 匹配组件
  * @param {string} type 类型
@@ -16,18 +16,17 @@ export const matchComponents = (type: string = 'text', scope: any, prop: any, it
   }
   
   return { 
-    'image': <p-t-image { ...bindProp } />,
-    'btn': <p-t-button { ...bindProp } />,
-    'switch': <p-t-switch { ...bindProp } />,
-    'input': <p-t-input { ...bindProp } />,
-    'text': <>文本</>,
-    'textarea': <p-t-input></p-t-input>,
-    'iconfont': <p-t-icon { ...bindProp } />,
-    'tag': <p-t-tags { ...bindProp } />,
-    'rate': <p-t-rate { ...bindProp } />,
-    'href': <p-t-link { ...bindProp } />,
-    'video': <p-t-video { ...bindProp } />,
-    'layout':'layout'
+    [BasicsComponentType.Image]: <p-t-image { ...bindProp } />,
+    [BasicsComponentType.Btn]: <p-t-button { ...bindProp } />,
+    [BasicsComponentType.Switch]: <p-t-switch { ...bindProp } />,
+    [BasicsComponentType.Input]: <p-t-input { ...bindProp } />,
+    [BasicsComponentType.Text]: <>文本</>,
+    [BasicsComponentType.Textarea]: <p-t-input></p-t-input>,
+    [BasicsComponentType.Iconfont]: <p-t-icon { ...bindProp } />,
+    [BasicsComponentType.Tag]: <p-t-tags { ...bindProp } />,
+    [BasicsComponentType.Rate]: <p-t-rate { ...bindProp } />,
+    [BasicsComponentType.Link]: <p-t-link { ...bindProp } />,
+    [BasicsComponentType.Video]: <p-t-video { ...bindProp } />
   }[type]
 }
 
@@ -48,29 +47,35 @@ export const FormItemLabelToolTip = (label: string, content: string, placement: 
 /**
  * 自定义表单label新增
  */
- export const FormItemLabelAdd = (label: string, type: string, fun: Function) => {
+ export const FormItemLabelAdd = (label: string, type: string, fun: Function, element?: JSX.Element) => {
    const status = ref(false)
-   const value = ref('#F7BA2A')
-   const node = ref<null| JSX.Element>(null)
+   const value = ref('')
+   const node = ref<undefined| JSX.Element>(element)
    switch (type) {
     case 'color':
+      value.value = '#F7BA2A'
       node.value = <el-color-picker size="small" v-model={value.value} onChange={() => fun(value.value)} />
       break;
     case 'input':
-      value.value = ''
-      node.value = <el-input v-model={value.value} size="small" onKeyDown={(e: any) =>{e.keycode === 13 && fun(value.value)}} onBlur={() => value.value != '' && fun(value.value)} />
+      // node.value = <el-input style="flex: 1" v-model={value.value} size="small" onKeyDown={(e: any) =>{e.keycode === 13 && fun(value.value)}}
+      //   onBlur={
+      //     () => {
+      //       console.log('失去焦点');
+            
+      //     }
+      //   } />
       break;
    }
    return {
     label: () => (
-      <>
-        <span>{ label }</span>
+      <div style="display: flex">
+        <div style="margin-right: 10px">{ label }</div>
         {
           status.value
           ? node.value
           : <el-button onClick={() => status.value = true} type="primary" size="small" icon={<Plus />} />
         }
-      </>
+      </div>
     )
   }
 }

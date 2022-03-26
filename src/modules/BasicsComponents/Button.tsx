@@ -1,4 +1,5 @@
 import { componentAttr } from '#/modules';
+import { BasicsComponentType } from '#/enums';
 import { createAttr } from '@/utils/index';
 import { BtnDataType, PowerfulTableHeaderProps } from 'el-plus-powerful-table-ts/global';
 import { getCurrentData, data } from "@/modules/index"
@@ -19,7 +20,7 @@ const defineBtnData: BtnDataType = {
   params: {}
 }
 
-export const attr: componentAttr<BtnDataType[]> = createAttr<BtnDataType[]>('按钮', 'btn', <Files />, [defineBtnData])
+export const attr: componentAttr<BtnDataType[]> = createAttr<BtnDataType[]>('按钮', BasicsComponentType.Btn, <Files />, [defineBtnData])
 
 export default defineComponent({
   setup() {

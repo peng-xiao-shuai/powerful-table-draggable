@@ -62,7 +62,8 @@ import { PowerfulTableHeader, PowerfulTableHeaderProps } from 'el-plus-powerful-
 import { matchComponents } from '../../components/common';
 import { useFunction, useState } from '../powerful-table';
 import { VueDraggableNext as Draggable } from 'vue-draggable-next'
-import { header, GroupName, data } from '@/modules/index';
+import { header, data } from '@/modules/index';
+import { GroupName } from '#/enums';
 import MoreOperate from "@/components/moreoperate/MoreOperate.vue";
 // BUG 只有一个按钮时拖拽会多出一个
 export default defineComponent({

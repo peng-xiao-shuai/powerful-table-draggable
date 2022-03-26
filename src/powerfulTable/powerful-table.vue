@@ -66,7 +66,8 @@ import { Splitpanes, Pane } from 'splitpanes'
 import 'splitpanes/dist/splitpanes.css'
 import { draggableHoverStyle } from './powerful-table';
 // 视图的数据 相当于powerful-table-ts 组件的 header
-import { listComponent, header, GroupName, data } from '@/modules/index';
+import { listComponent, header, data } from '@/modules/index';
+import { GroupName } from '#/enums';
 
 // 获取 布局方向
 const justifyFun = (val: string) => {

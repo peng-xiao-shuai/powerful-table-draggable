@@ -1,4 +1,5 @@
 import { componentAttr } from '#/modules';
+import { OtherComponentsType } from '#/enums';
 import { createAttr } from '@/utils/index';
 import { PowerfulTableHeader } from 'el-plus-powerful-table-ts/global';
 import { defineComponent } from 'vue';
@@ -7,7 +8,7 @@ import { sortableOptions, fixedOptions, alignOptions } from "@/modules/dict"
 import { FormItemLabelToolTip } from '@/components/common';
 import { Notification } from '@element-plus/icons-vue';
 
-export const attr: componentAttr<PowerfulTableHeader> = createAttr<PowerfulTableHeader>('布局容器', 'layout', <Notification />, {
+export const attr: componentAttr<PowerfulTableHeader> = createAttr<PowerfulTableHeader>('布局容器', OtherComponentsType.Layout, <Notification />, {
   fixed: false,
   sortable: false,
   headerAlign: 'center',

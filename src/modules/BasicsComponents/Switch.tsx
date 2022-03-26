@@ -1,11 +1,12 @@
 import { componentAttr } from '#/modules';
+import { BasicsComponentType } from '#/enums';
 import { createAttr } from '@/utils/index';
 import { SwitchDataType, PowerfulTableHeaderProps } from 'el-plus-powerful-table-ts/global';
 import { defineComponent } from 'vue';
 import { getCurrentData } from "@/modules/index"
 import { Open } from '@element-plus/icons-vue';
 
-export const attr: componentAttr<SwitchDataType> = createAttr<SwitchDataType>('开关', 'switch', <Open />, {
+export const attr: componentAttr<SwitchDataType> = createAttr<SwitchDataType>('开关', BasicsComponentType.Switch, <Open />, {
   activeColor: undefined,
   inactiveColor: undefined,
   inactiveText: '',

@@ -1,6 +1,8 @@
 import { reactive, ref, computed } from 'vue';
 import { PowerfulTableHeader } from 'el-plus-powerful-table-ts/global';
-import { componentAttr } from '#/modules';
+import type { componentAttr } from '#/modules';
+import { GroupName, OtherComponentsType } from '#/enums';
+
 type BasicsComponents = {
   attr?: componentAttr,
   [k: string]: any
@@ -10,11 +12,6 @@ type ListComponent = {
   label: string;
   list: componentAttr[];
   [k: string]: any
-}
-
-enum GroupName {
-  Layout = 'layout',
-  People = 'people'
 }
 
 // 获取所有的基础组件文件
@@ -46,7 +43,7 @@ const data = reactive<{
 }>({
   headerIndex: 0,
   propsIndex: 0,
-  type: 'layout'
+  type: OtherComponentsType.Layout
 })
 // 辅助数据
 const currentAttr = computed(() => {
@@ -57,7 +54,7 @@ const currentAttr = computed(() => {
 const components: {[k:string]: any} = {}
 
 const getCurrentData = <T = PowerfulTableHeader>(): T => {
-  return data.type == 'layout' ? header.value[data.headerIndex] : (header.value[data.headerIndex].props as any[])[data.propsIndex]
+  return data.type == OtherComponentsType.Layout ? header.value[data.headerIndex] : (header.value[data.headerIndex].props as any[])[data.propsIndex]
 }
 
 const setAttrs = (source: BasicsComponents, label: string, group: GroupName = GroupName.People) => {
@@ -81,7 +78,6 @@ setAttrs(basicsComponents, '基础组件', GroupName.Layout)
 setAttrs(otherComponents, '其他组件')
 
 export {
-  GroupName,
   listComponent,
   header,
   data,

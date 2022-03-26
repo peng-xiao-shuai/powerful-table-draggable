@@ -1,4 +1,5 @@
 import { componentAttr } from '#/modules';
+import { BasicsComponentType } from '#/enums';
 import { createAttr } from '@/utils/index';
 import { InputDataType, PowerfulTableHeaderProps } from 'el-plus-powerful-table-ts/global';
 import { defineComponent } from 'vue';
@@ -6,7 +7,7 @@ import { getCurrentData } from "@/modules/index"
 import { inputSlotDirection, disabledOptions } from '@/modules/dict';
 import { EditPen } from '@element-plus/icons-vue';
 
-export const attr: componentAttr<InputDataType> = createAttr<InputDataType>('输入框', 'input', <EditPen />, {
+export const attr: componentAttr<InputDataType> = createAttr<InputDataType>('输入框', BasicsComponentType.Input, <EditPen />, {
   symbol: undefined,
   placeholder: '',
   disabled: false,
