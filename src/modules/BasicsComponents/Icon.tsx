@@ -1,49 +1,50 @@
 import { componentAttr } from '#/modules';
+import { BasicsComponentType } from '#/enums';
 import { createAttr } from '@/utils/index';
-import { InputDataType, PowerfulTableHeaderProps } from 'el-plus-powerful-table-ts/global';
-import { defineComponent } from 'vue';
+import { IconFontDataType, PowerfulTableHeaderProps } from 'el-plus-powerful-table-ts/global';
+import { defineComponent, ref } from 'vue';
 import { getCurrentData } from "@/modules/index"
-import { inputSlotDirection, disabledOptions } from '@/modules/dict';
-import { EditPen } from '@element-plus/icons-vue';
+import { Plus } from '@element-plus/icons-vue';
+import { Orange } from '@element-plus/icons-vue';
 
-export const attr: componentAttr<InputDataType> = createAttr<InputDataType>('输入框', 'input', <EditPen />, {
-  symbol: undefined,
-  placeholder: '',
-  disabled: false,
-  style: {},
-  slot: undefined
+export const attr: componentAttr<IconFontDataType> = createAttr<IconFontDataType>('图标', BasicsComponentType.Iconfont, <Orange />, {
+  class: [],
+  style: {}
 })
 
 export default defineComponent({
   setup() {
-    const getFormData = () => (getCurrentData<PowerfulTableHeaderProps<any, InputDataType>>().data as InputDataType)
-    
+    const getFormData = () => (getCurrentData<PowerfulTableHeaderProps<any, IconFontDataType>>().data as IconFontDataType)
+    const value = ref('')
+    const status = ref(false)
     return () => (
       <>
-        <div class="grid grid-c-2">
-          <el-form-item label='占位文本'>
-            <el-input v-model={getFormData().placeholder}></el-input>
-          </el-form-item>
-          <el-form-item label='插槽方向'>
-            <el-select v-model={getFormData().disabled}>
-              {disabledOptions.map(option => (
-                <el-option label={option.label} key={option.label} value={option.value}></el-option>
-              ))}
-            </el-select>
-          </el-form-item>
-        </div>
-        <el-form-item label='禁用'>
-          {inputSlotDirection.map(option => (
-            <el-radio v-model={getFormData().slot} label={option.value}>{option.label}</el-radio>
-          ))}
+        <el-form-item v-slots={{
+          label: () => (
+            <div style="display: flex">
+              <div style="margin-right: 10px">样式名称</div>
+              {
+                status.value
+                ? <el-input autofocus style="flex: 1" v-model={value.value} size="small"
+                    onChange={
+                      () => {
+                        status.value = false;
+                        (getFormData().class as string[]).push(value.value)
+                        value.value = '';
+                      }
+                    }
+                  />
+                : <el-button onClick={() => status.value = true} type="primary" size="small" icon={<Plus />} />
+              }
+            </div>
+          )
+        }}>
+          {
+            (getFormData().class as string[]).map((_, index) => (
+              <el-tag key={'class-' + index} closable onClose={() => (getFormData().class as string[]).splice(index, 1)}>{ _ }</el-tag>
+            ))
+          }
         </el-form-item>
-        {
-          getFormData().slot
-          ? <el-form-item label='插槽内容' prop="symbol">
-              <el-input v-model={getFormData().symbol}></el-input>
-            </el-form-item>
-          : ""
-        }
       </>
     )
   }
