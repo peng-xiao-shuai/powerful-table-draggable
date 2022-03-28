@@ -14,14 +14,21 @@ export const matchComponents = (type: string = 'text', scope: any, prop: any, it
     prop,
     aligning: item.headerAlign || 'center',
   }
-  
+  if (scope.row[prop.prop] == undefined || (scope.row[prop.prop] == null && prop.type != 'btn')) {
+    return (
+        prop.reserve
+        ? <div v-html={prop.reserve}></div>
+        : <div><span>暂无数据</span></div>  
+    )
+  }
+
   return { 
     [BasicsComponentType.Image]: <p-t-image { ...bindProp } />,
     [BasicsComponentType.Btn]: <p-t-button { ...bindProp } />,
     [BasicsComponentType.Switch]: <p-t-switch { ...bindProp } />,
     [BasicsComponentType.Input]: <p-t-input { ...bindProp } />,
-    [BasicsComponentType.Text]: <>文本</>,
-    [BasicsComponentType.Textarea]: <p-t-input></p-t-input>,
+    [BasicsComponentType.Text]: <p-t-text  { ...bindProp }/>,
+    [BasicsComponentType.Textarea]: <p-t-input { ...bindProp }/>,
     [BasicsComponentType.Iconfont]: <p-t-icon { ...bindProp } />,
     [BasicsComponentType.Tag]: <p-t-tags { ...bindProp } />,
     [BasicsComponentType.Rate]: <p-t-rate { ...bindProp } />,

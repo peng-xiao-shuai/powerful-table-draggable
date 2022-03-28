@@ -14,7 +14,7 @@ export const attr: componentAttr<RateDataType> = createAttr<RateDataType>('评�
   allowHalf: false,
   showText: false,
   showScore: false,
-  texts: ['极差', '失望', '一般', '满意', '惊喜']
+  texts: undefined
 })
 
 export default defineComponent({

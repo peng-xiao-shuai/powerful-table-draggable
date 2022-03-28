@@ -64,10 +64,11 @@ import ConfigData from './components/ConfigData';
 import { leftRenderIcon } from '../components/common';
 import { Splitpanes, Pane } from 'splitpanes'
 import 'splitpanes/dist/splitpanes.css'
-import { draggableHoverStyle } from './powerful-table';
+import { draggableHoverStyle, useState } from './powerful-table';
 // 视图的数据 相当于powerful-table-ts 组件的 header
 import { listComponent, header, data } from '@/modules/index';
 import { GroupName } from '#/enums';
+import en from "element-plus/lib/locale/lang/en";
 
 // 获取 布局方向
 const justifyFun = (val: string) => {
@@ -97,8 +98,16 @@ export default defineComponent({
       }
     }
   },
-  setup() {
-    provide("size", "small");
+  setup(props) {
+    const { injectProps } = useState({})
+    /* ------ 注入数据 ------ */
+    // TODO powerful-table-ts props 未传递
+    // TODO 当每个布局容器中只有一个元素的时候不能拖拽
+    // 语言
+    provide("locale", props?.locale || (injectProps && injectProps.locale) || en);
+    // 组件大小
+    provide("size", props?.size || injectProps?.size || "small");
+    // 单元格内布局
     provide("justifyFun", justifyFun);
     const components = listComponent
     // 当前拖动的下标
